@@ -4,7 +4,7 @@
  * Set APPS_SCRIPT_ENDPOINT to your deployed Apps Script web app URL.
  */
 
-const APPS_SCRIPT_ENDPOINT = "https://script.google.com/macros/s/AKfycbzC6TbUeKjV8JMrHp4PI0EcPmDKU0Gjwr-GR-L8MshSEPTnCYNlscIOWkT2JlaUicJ1/exec";
+const APPS_SCRIPT_ENDPOINT = "https://script.google.com/macros/s/AKfycbyxK_6TXgTYtW2XFCE7zLlS232nD0GVK31hfGNYZPF777GLvZ9VU08xLSWthtqGLq13/exec";
 
 const API = (function(){
   function getAuthToken(){
