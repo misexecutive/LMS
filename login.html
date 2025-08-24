@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Lead Management - Login</title>
-  <link rel="stylesheet" href="css/styles.css"> <!-- Your single central CSS -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="js/api.js"></script>
-  <script src="js/login.js" defer></script>
+  <script src="login.js" defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      background: #f4f4f4;
+    }
+    .login-box {
+      text-align: center;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Lead Management System</h2>
-    <p>Please sign in with your Google account</p>
-    <div id="buttonDiv"></div>
-    <p id="status"></p>
+  <div class="login-box">
+    <h2>Welcome</h2>
+    <div id="g_id_onload"
+         data-client_id="YOUR_CLIENT_ID.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse"
+         data-auto_select="true"
+         data-itp_support="true">
+    </div>
+    <div class="g_id_signin"
+         data-type="standard"
+         data-shape="rectangular"
+         data-theme="outline"
+         data-text="sign_in_with"
+         data-size="large"
+         data-logo_alignment="left">
+    </div>
   </div>
 </body>
 </html>
