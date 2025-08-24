@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Admin Portal - LeadMS</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Admin Portal</h1>
+    <div><button id="btnSignOut">Sign out</button></div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h3>Import Leads</h3>
+      <p><button id="btnDownloadTemplate">Download Template</button></p>
+      <input type="file" id="fileLeads" accept=".csv,.xlsx" />
+      <p><button id="btnUploadLeads">Import Leads</button></p>
+      <div id="importResult"></div>
+    </section>
+
+    <section class="card">
+      <h3>User Management</h3>
+      <div>
+        <input id="uEmail" placeholder="Email" />
+        <input id="uName" placeholder="Name" />
+        <select id="uRole"><option>Caller</option><option>CrossCaller</option><option>TL</option><option>Admin</option></select>
+        <input id="uTeamLeaderEmail" placeholder="Reporting Person (email)" />
+        <button id="btnAddUser">Add / Update User</button>
+      </div>
+      <div id="usersList"></div>
+    </section>
+
+    <section class="card">
+      <h3>Assign Leads</h3>
+      <div>
+        <input id="assignDistrict" placeholder="District" />
+        <input id="assignBlock" placeholder="Block" />
+        <select id="assignTo"></select>
+        <button id="btnFetchCount">Get Count</button>
+        <div id="assignCount"></div>
+        <button id="btnAssignLeads">Assign (bulk)</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>View Leads</h3>
+      <div id="leadsContainer"></div>
+      <div id="leadsPager"></div>
+    </section>
+  </main>
+
+<script>
+  // admin.js will wire up everything
+  (function(){ document.addEventListener("DOMContentLoaded", ()=>ADMIN.init()); })();
+</script>
+</body>
+</html>
