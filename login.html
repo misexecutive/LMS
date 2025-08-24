@@ -1,40 +1,19 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Login - LeadMS</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="css/styles.css" />
-  <script src="js/api.js"></script>
-  <script src="js/auth.js"></script>
-  <!-- Google Identity Services -->
+  <meta charset="UTF-8">
+  <title>Lead Management - Login</title>
+  <link rel="stylesheet" href="css/style.css"> <!-- Your single central CSS -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="js/api.js"></script>
+  <script src="js/login.js" defer></script>
 </head>
-<body class="page-center">
-  <div class="card">
-    <h2>Sign in to Lead Management</h2>
+<body>
+  <div class="login-container">
+    <h2>Lead Management System</h2>
+    <p>Please sign in with your Google account</p>
     <div id="buttonDiv"></div>
-    <p id="status" class="muted"></p>
+    <p id="status"></p>
   </div>
-
-  <script>
-    // Replace with your OAuth client id (must match Apps Script OAUTH_CLIENT_ID)
-    const OAUTH_CLIENT_ID = "616810582188-9hj0llh52sdbrh8o25bpnh9hldhtn68j.apps.googleusercontent.com";
-
-    function onSignedIn(profile){
-      // success toast
-      document.getElementById("status").innerText = "Signed in as " + profile.email + ". Redirecting...";
-      // Redirect based on role
-      if(profile.role === "Admin") window.location.href = "admin.html";
-      else {
-        // redirect to respective portals (e.g., caller.html) - not built in phase1
-        window.location.href = "admin.html"; // temporary: admin for testing
-      }
-    }
-
-    window.onload = function(){
-      AUTH.init(OAUTH_CLIENT_ID, onSignedIn);
-    };
-  </script>
 </body>
 </html>
