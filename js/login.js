@@ -1,54 +1,54 @@
-// ===== CONFIG =====
-const OAUTH_CLIENT_ID = "616810582188-9hj0llh52sdbrh8o25bpnh9hldhtn68j.apps.googleusercontent.com";
-const API_BASE = "https://script.google.com/macros/s/AKfycbzC6TbUeKjV8JMrHp4PI0EcPmDKU0Gjwr-GR-L8MshSEPTnCYNlscIOWkT2JlaUicJ1/exec"; // e.g. https://script.google.com/macros/s/XXX/exec
+// login.js
 
-// ===== Init Google Login =====
-window.onload = function () {
-  google.accounts.id.initialize({
-    client_id: OAUTH_CLIENT_ID,
-    callback: handleCredentialResponse
-  });
+// Replace with your Apps Script Web App URL (deployed as "Anyone with link")
+const BACKEND_URL = "https://script.google.com/macros/s/AKfycbyxK_6TXgTYtW2XFCE7zLlS232nD0GVK31hfGNYZPF777GLvZ9VU08xLSWthtqGLq13/exechttps://script.google.com/macros/s/AKfycbyxK_6TXgTYtW2XFCE7zLlS232nD0GVK31hfGNYZPF777GLvZ9VU08xLSWthtqGLq13/exec";
 
-  google.accounts.id.renderButton(
-    document.getElementById("buttonDiv"),
-    { theme: "outline", size: "large" }
-  );
-};
+// This function is called when Google One Tap or Sign-In button succeeds
+function handleCredentialResponse(response) {
+  const idToken = response.credential;
 
-// ===== Handle Login Response =====
-async function handleCredentialResponse(response) {
-  if (!response.credential) {
-    document.getElementById("status").innerText = "Login failed.";
-    return;
-  }
+  // Save token to localStorage so all pages can use it
+  localStorage.setItem("id_token", idToken);
 
-  try {
-    // Decode JWT to get email
-    const payload = JSON.parse(atob(response.credential.split(".")[1]));
-    const email = payload.email;
-
-    // Save in sessionStorage
-    sessionStorage.setItem("userEmail", email);
-
-    // Check role from backend
-    const roleRes = await fetch(`${API_BASE}?action=getUserRole&email=${encodeURIComponent(email)}`);
-    const result = await roleRes.json();
-
-    if (result.status === "success") {
-      sessionStorage.setItem("userRole", result.role);
-
-      if (result.role === "Admin") {
-        window.location.href = "admin.html";
-      } else if (result.role === "User") {
-        window.location.href = "performance.html";
-      } else {
-        document.getElementById("status").innerText = "No role assigned. Contact Admin.";
-      }
-    } else {
-      document.getElementById("status").innerText = "Access denied.";
+  // Verify with backend (optional check)
+  fetch(BACKEND_URL + "?action=AUTH_ME", {
+    method: "GET",
+    headers: {
+      "Authorization": "Bearer " + idToken,
+      "Content-Type": "application/json"
     }
-  } catch (err) {
-    console.error(err);
-    document.getElementById("status").innerText = "Error during login. See console.";
-  }
+  })
+    .then(r => r.json())
+    .then(data => {
+      if (data.ok) {
+        console.log("Login success:", data.user);
+        alert("Welcome " + data.user.name);
+
+        // Redirect based on role
+        getUserRole(data.user.email);
+      } else {
+        alert("Login failed: " + data.error);
+      }
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      alert("Something went wrong during login");
+    });
+}
+
+// Get user role from backend
+function getUserRole(email) {
+  fetch(BACKEND_URL + "?action=getUserRole&email=" + encodeURIComponent(email))
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === "success") {
+        if (data.role === "Admin") {
+          window.location.href = "admin.html";
+        } else {
+          window.location.href = "user.html";
+        }
+      } else {
+        alert("No role assigned, contact admin.");
+      }
+    });
 }
