@@ -1,0 +1,23 @@
+/* css/styles.css - central style for all portals (phase1) */
+:root{
+  --bg:#f6f7fb;
+  --card:#ffffff;
+  --accent:#0b5fff;
+  --muted:#666;
+  --pad:12px;
+  --radius:10px;
+  font-family: Inter, system-ui, Arial, sans-serif;
+}
+
+body { background:var(--bg); margin:0; color:#222; }
+.page-center{ display:flex; align-items:center; justify-content:center; min-height:100vh; }
+.card{ background:var(--card); padding:20px; border-radius:var(--radius); box-shadow:0 6px 20px rgba(10,10,20,0.06); width:380px; }
+.topbar{ display:flex; justify-content:space-between; align-items:center; padding:12px 20px; background:var(--card); border-bottom:1px solid #eee; }
+.container{ max-width:1100px; margin:20px auto; padding:12px; display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+.card h3{ margin-top:0; }
+input, select, button, textarea{ padding:8px 10px; border-radius:6px; border:1px solid #ddd; font-size:14px; }
+button{ background:var(--accent); color:#fff; border:none; cursor:pointer; padding:8px 12px; }
+button:disabled{ opacity:0.5; cursor:not-allowed; }
+.simple{ width:100%; border-collapse:collapse; }
+.simple th, .simple td{ border:1px solid #eee; padding:8px; text-align:left; }
+.muted{ color:var(--muted); font-size:13px; }
